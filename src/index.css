@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Inter:wght@400;700&family=Lora:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .Serif {
+    font-family: "Lora", serif;
+  }
+  .Sans-serif {
+    font-family: "Inter", sans-serif;
+  }
+  .Mono {
+    font-family: "Inconsolata", monospace;
+  }
+  .audio-hover g circle {
+    opacity: 1;
+  }
+  .audio-hover g path {
+    fill: #ffffff;
+  }
+}
+
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  width: 100vw;
+}
