@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
 function DictionaryApp() {
@@ -6,12 +6,11 @@ function DictionaryApp() {
   const [searchResults, setSearchResults] = useState([]);
   const [isDayMode, setIsDayMode] = useState(true);
   const [selectedFont, setSelectedFont] = useState("Sans-serif");
-
+  const emptySearchWordRef = useRef(null);
 
   const handleFontChange = (e) => {
-    setSelectedFont(e.value);
+    setSelectedFont(e.target.value);
   };
-
 
   const toggleDayMode = () => {
     setIsDayMode(!isDayMode);
@@ -19,22 +18,29 @@ function DictionaryApp() {
 
   const handleSearch = async () => {
     try {
+      if (Searchword === '') {
+        setSearchResults([]);
+        emptySearchWordRef.current.innerText = "Oops, it is empty.";
+        return;
+      }
       const response = await axios.get(
         `https://api.dictionaryapi.dev/api/v2/entries/en/${Searchword}`
       );
       setSearchResults(response.data);
+      emptySearchWordRef.current.innerText = "";
     } catch (error) {
       console.log(error);
     }
   };
-console.log(isDayMode);
+
+  console.log(isDayMode);
 
   return (
-<body className={`${!isDayMode ? 'bg-black text-white' : 'bg-white text-black'} sm:bg-white sm:text-black h-screen`}>
+<body className={`${!isDayMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
 
 
-    <div className={`${!isDayMode ? 'bg-black text-white' : 'bg-white  text-black'} flex flex-col justify-center items-center mx-auto sm:w-370 `}>
-    <header className={`flex justify-between flex-row gap-5 w-[736.99px] h-[36.5px] left-[351px] mt-[50px] top-[58px] rounded-none sm:w-370  ${!isDayMode ? 'bg-black text-white' : 'bg-white'}`}>
+    <div className={`${!isDayMode ? 'bg-black text-white' : 'bg-white  text-black'} flex flex-col justify-center items-center mx-auto sm:w-[370] sm:justify-between`}>
+    <header className={`flex justify-between flex-row gap-[210px] lg:w-[736.99px] ms:w-[370px] h-[36.5px]  mt-[50px] rounded-none sm:w-[370]  ${!isDayMode ? 'bg-black text-white' : 'bg-white'} flex justify-between flex-row m-auto`}>
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="38" viewBox="0 0 34 38">
           <g fill="none" fillRule="evenodd" stroke="#838383" strokeLinecap="round" strokeWidth="1.5">
             <path d="M1 33V5a4 4 0 0 1 4-4h26.8A1.2 1.2 0 0 1 33 2.2v26.228M5 29h28M5 37h28" />
@@ -43,10 +49,10 @@ console.log(isDayMode);
           </g>
         </svg>
 
-        <div className="flex flex-row gap-5 w-100">
+        <div className="flex flex-row justify-between gap-5 w-100">
 
         <select
-  className={`rounded-16 text-lg ${isDayMode ? 'bg-white text-black' : 'bg-black text-gray-400'}`}
+  className={`rounded-16 text-lg ${isDayMode ? 'bg-white text-black' : 'bg-black text-gray-400'} `}
   onChange={handleFontChange}
   value={selectedFont}
 >
@@ -73,32 +79,35 @@ console.log(isDayMode);
           </svg>
         </div>
       </header>
-      <div className={`${!isDayMode ? ' bg-gray-400 text-white' : ' bg-gray-200'} flex justify-between items-center flex-row w-[736.99px] h-[36.5px] mt-[50px] border-20 rounded`}>
+      <div className={`${!isDayMode ? ' bg-gray-400 text-white' : ' bg-gray-200'} lg:w-[736.99px]  w-[95%] flex justify-between items-center flex-row  h-[36.5px] mt-[50px] border-20 rounded`}>
       <input
   type="text"
   value={Searchword}
   onChange={(e) => setSearchword(e.target.value)}
   placeholder="Enter a word"
-  className={`w-[400px] ${!isDayMode ? ' bg-gray-400 text-white' : ' bg-gray-200  text-black'}`}
+  className={` w-[100%] ${!isDayMode ? ' bg-gray-400 text-white' : ' bg-gray-200  text-black'} `}
 />
-        <div  onClick={handleSearch} > 
+        <div className='flex justify-between items-center flex-row' onClick={handleSearch} > 
            <svg onClick={handleSearch} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path fill="none" stroke="#A445ED" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m12.663 12.663 3.887 3.887M1 7.664a6.665 6.665 0 1 0 13.33 0 6.665 6.665 0 0 0-13.33 0Z"/></svg>
            </div>
       </div>
-      <div className={`${isDayMode ? 'bg-white text-black' : 'bg-black text-white'}`} style={{ width: '736.99px' }}>
+      <div className={`${isDayMode ? 'bg-white text-black' : 'bg-black text-white'} m-[15px] `} style={{ lg: { width: '736.99px' }, ms: { width: '370px' } }}>
 
     
       {searchResults.length > 0 ? (
-      <ul>
+        
+        <ul className='lg:w-[736.99px]  ms:w-[370px]'>
      
 
     
-     <li className="mt-[20px] mb-[20px] text-4xl mt-20px mb-20px ">
-     <div className="mt-[20px] mb-[20px]  flex justify-between flex-row">
+     <li className="mt-[10px] mb-[10px] text-4xl   ">
+     <div className="mt-[10px] mb-[10px] flex  justify-between items-center flex-row  ">
      {searchResults[0].word}
+
 {searchResults[0].phonetics.length > 0 && (
-  <div className="mt-[45px] mb-[20px] x">
-    <svg
+  <>
+  <div className="mt-[45px] mb-[20px] flex justify-between flex-row   ">
+    <svg 
       onClick={() => {
         const audioElement = document.querySelector('.audio-Element');
         audioElement.play();
@@ -117,31 +126,32 @@ console.log(isDayMode);
       <audio
         src={searchResults[0].phonetics[0].audio}
         controls
-        className="audio-Element" style={{ display: 'none' }}
+        className="audio-Element" style={{ display: 'none' } }
       />
   )}
-  <p className="h-75 w-75 left-[1013px] top-[275px] rounded-full text-[#A445ED] ">
-  {searchResults[0].phonetics[0].text}
-</p>
+  
 </div>
 
+
+</>
   )}
 </div>
+<p className="h-75 w-75 left-[1013px] top-[275px] rounded-full text-[#A445ED]   ">
+  {searchResults[0].phonetics[0].text}
+</p>
                        
           <ul>
           
             { searchResults[0].meanings.map((meaning, index) => (
-      <li
-      key={index}
-      className={`${
-        selectedFont === "Lora" || selectedFont === "Inter"
-          ? "italic"
-          : "non-italic"
-      } mt-10 mb-10  left-[1013px] top-[275px] rounded-full text-base `}
-    >
+              <li
+  key={index}
+  className={`${
+    selectedFont === "Sans Serif" ? "SansSerifClass" : selectedFont === "Serif" ? "SerifClass" : "MonoClass"
+  } mt-10 mb-10 left-[1013px] top-[275px] rounded-full text-base  lg:m-[20px] md:m-[20px] `}
+>
 
 
-                <h1>{meaning.partOfSpeech}</h1>
+                <h1 className=''>  {meaning.partOfSpeech}</h1>
             
                 <p className="mt-[20px] mb-[20px] ">meaning</p>
                 <ul>
@@ -163,7 +173,7 @@ console.log(isDayMode);
      
      
       ) : (
-        <p className="text-red-500">Whoops, can't be empty...</p>
+        <p className="text-red-500" id='whoops'></p>
       )}
     </div>
     </div>

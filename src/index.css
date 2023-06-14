@@ -5,13 +5,15 @@
 @tailwind utilities;
 
 @layer utilities {
-  .Serif {
+  .SerifClass {
     font-family: "Lora", serif;
   }
-  .Sans-serif {
+
+  .SansSerifClass {
     font-family: "Inter", sans-serif;
   }
-  .Mono {
+
+  .MonoClass {
     font-family: "Inconsolata", monospace;
   }
   .audio-hover g circle {
