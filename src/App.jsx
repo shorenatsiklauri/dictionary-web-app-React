@@ -137,17 +137,18 @@ function DictionaryApp() {
               !isDayMode ? " bg-gray-400 text-white" : " bg-gray-200"
             } lg:w-[736.99px]  w-[95%] flex justify-between items-center flex-row  h-[36.5px] mt-[50px] border-20 rounded`}
           >
-            <input
-              type="text"
-              value={Searchword}
-              onChange={(e) => setSearchword(e.target.value)}
-              placeholder="Enter a word"
-              className={` w-[100%] ${
-                !isDayMode
-                  ? " bg-gray-400 text-white"
-                  : " bg-gray-200  text-black"
-              } `}
-            />
+        <input
+  type="text"
+  value={Searchword}
+  onChange={(e) => setSearchword(e.target.value)}
+  placeholder="Enter a word"
+  className={`w-[100%] border-none focus:outline-none pl-3 ${
+    !isDayMode
+      ? "bg-gray-400 text-white"
+      : "bg-gray-200 text-black"
+  }`}
+  style={{ border: "none" }}
+/>
             <div
               className="flex justify-between items-center flex-row"
               onClick={handleSearch}
@@ -178,7 +179,6 @@ function DictionaryApp() {
           >
 
 <div>
-        {" "}
         {empyMessage ? (
           <p className="text-red-500"> This is ampty </p>
         ) : errorMessage ? (
