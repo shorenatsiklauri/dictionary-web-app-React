@@ -4,7 +4,7 @@ import axios from "axios";
 function DictionaryApp() {
   const [Searchword, setSearchword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [isDayMode, setIsDayMode] = useState(true);
+  const [isDayMode, setIsDayMode] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Sans-serif");
   const [errorMessage, setErrorMessage] = useState(false);
   const [empyMessage, setEmpyMessage] = useState(false);
