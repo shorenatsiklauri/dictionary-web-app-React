@@ -60,11 +60,11 @@ function DictionaryApp() {
             !isDayMode ? "bg-black text-white" : "bg-white  text-black"
           } flex flex-col justify-center items-center mx-auto sm:w-[370] sm:justify-between`}
         >
-          <header
-            className={`flex justify-between flex-row gap-[210px] lg:w-[736.99px] ms:w-[370px] h-[36.5px]  mt-[50px] rounded-none sm:w-[370]  ${
-              !isDayMode ? "bg-black text-white" : "bg-white"
-            } flex justify-between flex-row m-auto`}
-          >
+         <header
+  className={`flex justify-between flex-row gap-[30px] lg:gap-[210px] lg:w-[736.99px] ms:w-[370px] h-[36.5px] mt-[50px] rounded-none sm:w-[370px] ${
+    !isDayMode ? "bg-black text-white" : "bg-white"
+  } flex justify-between flex-row m-auto`}
+>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="34"
@@ -97,11 +97,7 @@ function DictionaryApp() {
                 <option value="Mono">Mono</option>
               </select>
 
-              <div
-                className={`relative inline-block w-12 mr-2 align-middle select-none ${
-                  !isDayMode ? "bg-black text-white" : "bg-white text-black"
-                }`}
-              >
+         <div className={`relative inline-block w-12 mr-2 ${isDayMode ? 'bg-white text-black' : 'bg-black text-white'} sm:ml-10 align-middle select-none`}>
                 <input
                   type="checkbox"
                   className={`rounded-16 text-lg ${
